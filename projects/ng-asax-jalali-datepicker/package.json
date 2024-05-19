@@ -1,5 +1,5 @@
 {
-  "name": "ng-asax-jalali-datepicker",
+  "name": "ng-asax-jalali-date-range-picker",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
