@@ -11,8 +11,8 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "paths": {
-      "ng-asax-jalali-datepicker": [
-        "./dist/ng-asax-jalali-datepicker"
+      "ng-asax-jalali-date-range-picker": [
+        "./dist/ng-asax-jalali-date-range-picker"
       ]
     },
     "esModuleInterop": true,
@@ -24,10 +24,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

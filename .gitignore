@@ -8,6 +8,7 @@
 
 # Node
 /node_modules
+/projects/ng-asax-jalali-date-range-picker/node_modules
 npm-debug.log
 yarn-error.log
 

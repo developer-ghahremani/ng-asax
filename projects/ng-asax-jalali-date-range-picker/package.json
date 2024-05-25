@@ -1,0 +1,24 @@
+{
+  "name": "ng-asax-jalali-date-range-picker",
+  "version": "0.0.7",
+  "peerDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "lodash": "^4.17.21",
+    "jalali-moment": "^3.3.11"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@types/lodash": "^4.17.4",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  },
+  "author": {
+    "email": "developer.ghahremani@gmail.com",
+    "name": "Reza Ghahremani"
+  }
+}

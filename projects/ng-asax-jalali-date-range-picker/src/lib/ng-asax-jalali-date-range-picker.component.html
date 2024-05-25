@@ -1,0 +1,410 @@
+<div class="ng-date-range-picker_container">
+  <div class="flex gap-2">
+    <div
+      class="border border-solid rounded-[4px] px-2 py-1 w-52 cursor-pointer relative"
+      (click)="toggleShowDateRangePicker()"
+    >
+      <p class="ng-date-range-picker_input_label">از تاریخ</p>
+      <p>{{ getDate("from") }}</p>
+    </div>
+    <div
+      class="border border-solid rounded-[4px] px-2 py-1 w-52 cursor-pointer relative"
+      (click)="toggleShowDateRangePicker()"
+    >
+      <p class="ng-date-range-picker_input_label">تا تاریخ</p>
+      <p>{{ getDate("to") }}</p>
+    </div>
+  </div>
+
+  <div
+    *ngIf="showDateRangePicker"
+    style="width: 80%"
+    class="border border-1 border-solid border-gray-1 rounded-sm absolute top-8 z-50 bg-white grid grid-cols-3 mt-4"
+  >
+    <div class="flex flex-col border-l border-gray-1">
+      <div
+        *ngFor="let item of options; let i = index"
+        class="border-b border-gray-1 py-3 px-2 cursor-pointer"
+        (click)="handleOptionClicked(item.type)"
+      >
+        <p>
+          {{ item.title }}
+        </p>
+      </div>
+      <div
+        class="border-b border-gray-1 py-3 px-2"
+        [ngClass]="
+          _tempFromDate ? 'cursor-pointer' : 'cursor-not-allowed text-gray-2'
+        "
+        (click)="
+          _tempFromDate ? handleOptionClicked(OptionType.tillNow) : undefined
+        "
+      >
+        <p>
+          {{ "تا امروز" }}
+        </p>
+      </div>
+
+      <div class="flex flex-1">
+        <div class="flex flex-1 items-center justify-center gap-2 px-2">
+          <input
+            #monthInputNumber
+            type="number"
+            placeholder="ماه قبل"
+            class="text-center outline-none border-b border-primary-1 w-16"
+          />
+          <button
+            class="bg-primary-1 px-2 py-1 rounded-md text-white text-xs"
+            type="button"
+            (click)="setMonth()"
+          >
+            ثبت
+          </button>
+        </div>
+        <div
+          class="flex flex-1 items-center justify-center gap-2 px-2 border-r"
+        >
+          <input
+            #dayInputNumber
+            type="number"
+            placeholder="روز قبل"
+            class="text-center outline-none border-b border-primary-1 w-16"
+          />
+          <button
+            class="bg-primary-1 px-2 py-1 rounded-md text-white text-xs"
+            type="button"
+            (click)="setDay()"
+          >
+            ثبت
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------ FROM CALENDAR ------------------ -->
+    <div class="w-full relative">
+      <div class="bg-gray-200 p-2">
+        <div
+          class="flex-1 flex items-center justify-center bg-white rounded py-1"
+        >
+          <p>{{ getPersianTextDate("from") }}</p>
+        </div>
+      </div>
+      <div class="flex justify-between mt-3 mr-3">
+        <div
+          (click)="handlePrevious()"
+          class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-chevron-right"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"
+            />
+          </svg>
+        </div>
+        <div class="flex flex-1 justify-center">
+          <p class="cursor-pointer" (click)="toggleFromMonthPicker()">
+            {{ monthsOfYear[_fromCalendar.month] }}
+          </p>
+          <p class="cursor-pointer" (click)="toggleFromYearPicker()">
+            {{ _fromCalendar.year }}
+          </p>
+        </div>
+
+        <div class="w-4"></div>
+      </div>
+      <!-- ---------------- FROM MONTH PICKER ---------------- -->
+      <div
+        *ngIf="showFromMonthPicker"
+        class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
+      >
+        <div
+          *ngFor="let month of monthsOfYear; let i = index"
+          class="border rounded flex justify-center items-center cursor-pointer"
+          [ngClass]="{
+            'bg-primary-1 text-white !border-none': i === _fromCalendar.month
+          }"
+          (click)="handleFromMonthClick(i)"
+        >
+          <p>
+            {{ month }}
+          </p>
+        </div>
+      </div>
+      <!-- ---------------- FROM MONTH PICKER ---------------- -->
+
+      <!-- ---------------- FROM YEAR PICKER ---------------- -->
+      <div
+        *ngIf="showFromYearPicker"
+        class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
+      >
+        <div
+          class="flex justify-center items-center"
+          *ngFor="let year of years"
+          [ngClass]="{
+            'bg-primary-1 text-white rounded': _fromCalendar.year === year
+          }"
+        >
+          <p class="cursor-pointer" (click)="handleFromYearClick(year)">
+            {{ year }}
+          </p>
+        </div>
+      </div>
+      <!-- ---------------- FROM YEAR PICKER ---------------- -->
+
+      <div class="flex w-full mt-4">
+        <div
+          *ngFor="let item of daysOfWeek; let i = index"
+          class="flex-1 text-center"
+        >
+          <p>
+            {{ item }}
+          </p>
+        </div>
+      </div>
+
+      <!-- ------------------ DAYS OF MONTH ------------------ -->
+      <div class="grid grid-cols-7 mt-3 mr-3 mb-4 ml-1 cursor-pointer">
+        <div
+          class="py-1 my-1"
+          *ngFor="
+            let item of getRangeDays(_fromCalendar.dayCount);
+            let i = index
+          "
+          [style.grid-column-start]="
+            i === 0
+              ? _fromCalendar.dayOfFirstDate === 0
+                ? 1
+                : _fromCalendar.dayOfFirstDate + 1
+              : undefined
+          "
+          [ngClass]="{
+            'bg-primary-1 text-white': isInRange(
+              _fromCalendar.year +
+                '-' +
+                (_fromCalendar.month + 1 < 10 ? '0' : '') +
+                (_fromCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ),
+            'rounded-r-xl': isFirstRangeDay(
+              _fromCalendar.year +
+                '-' +
+                (_fromCalendar.month + 1 < 10 ? '0' : '') +
+                (_fromCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ),
+            'rounded-l-xl': isLastRangeDay(
+              _fromCalendar.year +
+                '-' +
+                (_fromCalendar.month + 1 < 10 ? '0' : '') +
+                (_fromCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ),
+            'text-gray-2 bg-gray-50 cursor-not-allowed': isDisabled(
+              _fromCalendar.year +
+                '-' +
+                (_fromCalendar.month + 1 < 10 ? '0' : '') +
+                (_fromCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ),
+          }"
+        >
+          <p
+            class="text-center"
+            (click)="
+              handleClickDay(
+                _fromCalendar.year +
+                  '-' +
+                  (_fromCalendar.month < 10 ? '0' : '') +
+                  (_fromCalendar.month + 1) +
+                  '-' +
+                  (item < 10 ? '0' : '') +
+                  item
+              )
+            "
+          >
+            {{ item }}
+          </p>
+        </div>
+      </div>
+      <!-- ------------------ DAYS OF MONTH ------------------ -->
+    </div>
+    <!-- ------------------ FROM CALENDAR ------------------ -->
+
+    <!-- ------------------ TO CALENDAR ------------------ -->
+    <div class="w-full relative">
+      <div class="bg-gray-200 p-2">
+        <div
+          class="flex-1 flex items-center justify-center bg-white rounded py-1"
+        >
+          <p>{{ getPersianTextDate("to") }}</p>
+        </div>
+      </div>
+      <div class="flex justify-between mt-3 ml-3">
+        <div class="w-4"></div>
+        <div
+          class="flex justify-center items-center flex-1 text-center cursor-pointer"
+        >
+          <p (click)="toggleToMonthPicker()">
+            {{ monthsOfYear[_toCalendar.month] }}
+          </p>
+          <p (click)="toggleToYearPicker()">
+            {{ _toCalendar.year }}
+          </p>
+        </div>
+
+        <div
+          (click)="handleNext()"
+          class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-chevron-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="flex w-full mt-4 ml-3">
+        <div
+          *ngFor="let item of daysOfWeek; let i = index"
+          class="flex-1 text-center"
+        >
+          <p>
+            {{ item }}
+          </p>
+        </div>
+      </div>
+
+      <!-- ---------------- TO MONTH PICKER ---------------- -->
+      <div
+        *ngIf="showToMonthPicker"
+        class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
+      >
+        <div
+          *ngFor="let month of monthsOfYear; let i = index"
+          class="border rounded flex justify-center items-center cursor-pointer"
+          [ngClass]="{
+            'bg-primary-1 text-white !border-none': i === _toCalendar.month
+          }"
+          (click)="handleToMonthClick(i)"
+        >
+          <p>
+            {{ month }}
+          </p>
+        </div>
+      </div>
+      <!-- ---------------- TO MONTH PICKER ---------------- -->
+
+      <!-- ---------------- To YEAR PICKER ---------------- -->
+      <div
+        *ngIf="showToYearPicker"
+        class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
+      >
+        <div
+          class="flex justify-center items-center"
+          *ngFor="let year of years"
+          [ngClass]="{
+            'bg-primary-1 text-white rounded': _toCalendar.year === year
+          }"
+        >
+          <p class="cursor-pointer" (click)="handleToYearClick(year)">
+            {{ year }}
+          </p>
+        </div>
+      </div>
+      <!-- ---------------- TO YEAR PICKER ---------------- -->
+      <div class="grid grid-cols-7 mt-3 ml-3 mb-4 cursor-pointer">
+        <div
+          *ngFor="let item of getRangeDays(_toCalendar.dayCount); let i = index"
+          [style.grid-column-start]="
+            i === 0
+              ? _toCalendar.dayOfFirstDate === 0
+                ? 1
+                : _toCalendar.dayOfFirstDate + 1
+              : undefined
+          "
+          class="py-1 my-1"
+          [ngClass]="{
+            'bg-primary-1 text-white': isInRange(
+              _toCalendar.year +
+                '-' +
+                (_toCalendar.month + 1 < 10 ? '0' : '') +
+                (_toCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ),
+            'rounded-r-xl': isFirstRangeDay(
+              _toCalendar.year +
+                '-' +
+                (_toCalendar.month + 1 < 10 ? '0' : '') +
+                (_toCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ),
+            'rounded-l-xl': isLastRangeDay(
+              _toCalendar.year +
+                '-' +
+                (_toCalendar.month + 1 < 10 ? '0' : '') +
+                (_toCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ), 'text-gray-2 bg-gray-50 cursor-not-allowed': isDisabled(
+              _toCalendar.year +
+                '-' +
+                (_toCalendar.month + 1 < 10 ? '0' : '') +
+                (_toCalendar.month + 1) +
+                '-' +
+                (item < 10 ? '0' : '') +
+                item
+            ),
+          }"
+        >
+          <p
+            class="text-center"
+            (click)="
+              handleClickDay(
+                _toCalendar.year +
+                  '-' +
+                  (_toCalendar.month + 1 < 10 ? '0' : '') +
+                  (_toCalendar.month + 1) +
+                  '-' +
+                  (item < 10 ? '0' : '') +
+                  item
+              )
+            "
+          >
+            {{ item }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- ------------------ TO CALENDAR ------------------ -->
+  </div>
+</div>

@@ -1,7 +1,8 @@
+import moment, { Moment } from 'jalali-moment';
+
 import { Component } from '@angular/core';
-import { NgAsaxJalaliDatepickerComponent } from './../../projects/ng-asax-jalali-datepicker/src/lib/ng-asax-jalali-datepicker.component';
+import { NgAsaxJalaliDatepickerComponent } from './../../projects/ng-asax-jalali-date-range-picker/src/lib/ng-asax-jalali-date-range-picker.component';
 import { RouterOutlet } from '@angular/router';
-import { TestComponent } from './test/test.component';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,19 @@ import { TestComponent } from './test/test.component';
   imports: [RouterOutlet, NgAsaxJalaliDatepickerComponent],
 })
 export class AppComponent {
-  title = 'ng-asax';
+  handleChange({
+    fromDate,
+    toDate,
+  }: {
+    fromDate: moment.Moment;
+    toDate: moment.Moment;
+  }) {
+    this.fromDate = fromDate;
+    this.toDate = toDate;
+  }
+
+  fromDate: Moment = moment().startOf('jYear');
+  minDate: Moment = moment().add(-1, 'jYear');
+  maxDate: Moment = moment();
+  toDate: Moment = moment();
 }

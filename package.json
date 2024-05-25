@@ -5,8 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "cd projects/ng-asax-jalali-datepicker && ng build",
-    "publish:lib": "npm run build:lib && cd dist/ng-asax-jalali-datepicker && npm link && npm publish",
+    "build:lib": "cd projects/ng-asax-jalali-date-range-picker && ng build",
+    "publish:lib": "npm run build:lib && cd dist/ng-asax-jalali-date-range-picker && npm link && npm publish",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^17.1.0",
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
+    "jalali-moment": "^3.3.11",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -29,6 +30,7 @@
     "@angular/cli": "^17.1.2",
     "@angular/compiler-cli": "^17.1.0",
     "@types/jasmine": "~5.1.0",
+    "autoprefixer": "^10.4.19",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -36,6 +38,8 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^17.3.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
     "typescript": "~5.3.2"
   }
 }
