@@ -31,13 +31,13 @@ enum OptionType {
   styleUrls: [`./ng-asax-jalali-date-range-picker.component.scss`],
 })
 export class NgAsaxJalaliDatepickerComponent {
-  isComponentClicked: boolean = false;
-  isFocusInsideComponent: boolean = false;
   showToYearPicker: boolean = false;
   showToMonthPicker: boolean = false;
+  isComponentClicked: boolean = false;
   showFromYearPicker: boolean = false;
   showDateRangePicker: boolean = false;
   showFromMonthPicker: boolean = false;
+  isFocusInsideComponent: boolean = false;
   @ViewChild('monthInputNumber') monthInputNumber?: ElementRef;
   @ViewChild('dayInputNumber') dayInputNumber?: ElementRef;
   OptionType = OptionType;
@@ -77,6 +77,7 @@ export class NgAsaxJalaliDatepickerComponent {
       type: OptionType.fromFirstDayOfYear,
     },
   ];
+  @Input() isRightAlign: boolean = true;
   @Input({ required: true }) fromDate: Moment = moment().startOf('year');
   @Input({ required: true }) minDate: Moment = moment()
     .add(-2, 'jYear')
