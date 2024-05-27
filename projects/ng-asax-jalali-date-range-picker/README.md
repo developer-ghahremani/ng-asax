@@ -4,11 +4,13 @@ This is a configurable jalali (persian, khorshidi, shamsi) date-picker build for
 
 ## Screenshots
 
-<img alt="date picker" src="./screenshots/ng_asax.gif"width="300px" >
+<div>
+<img alt="date picker" src="https://github.com/developer-ghahremani/ng-asax/blob/master/projects/ng-asax-jalali-date-range-picker/screenshots/ng_asax.gif?raw=true"width="605px" >
+</div>
 
 <div>
-<img alt="date picker" src="https://github.com/developer-ghahremani/ng-asax/blob/master/projects/ng-asax-jalali-date-range-picker/screenshots/NgAsax.png?raw=true"width="300px" >
-<img alt="date picker" src="https://github.com/developer-ghahremani/ng-asax/blob/master/projects/ng-asax-jalali-date-range-picker/screenshots/NgAsax-2.png?raw=true"width="300px" >
+<img alt="date picker" src="https://github.com/developer-ghahremani/ng-asax/blob/master/projects/ng-asax-jalali-date-range-picker/screenshots/ng_asax.png?raw=true"width="300px" >
+<img alt="date picker" src="https://github.com/developer-ghahremani/ng-asax/blob/master/projects/ng-asax-jalali-date-range-picker/screenshots/ng_asax_2.png?raw=true"width="300px" >
 </div>
 
 1. Download from npm:
