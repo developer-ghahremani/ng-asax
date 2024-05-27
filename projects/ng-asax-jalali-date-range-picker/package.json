@@ -1,6 +1,6 @@
 {
   "name": "ng-asax-jalali-date-range-picker",
-  "version": "0.2.1",
+  "version": "0.2.7",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0",
@@ -19,6 +19,20 @@
   },
   "author": {
     "email": "developer.ghahremani@gmail.com",
-    "name": "Reza Ghahremani"
-  }
+    "name": "Reza Ghahremani",
+    "url": "https://github.com/developer-ghahremani/ng-asax"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/developer-ghahremani/ng-asax"
+  },
+  "keywords": [
+    "Javascript",
+    "Typescript",
+    "Angular",
+    "Date picker",
+    "jalali",
+    "shamsi",
+    "khorshidi"
+  ]
 }

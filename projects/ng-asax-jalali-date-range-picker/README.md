@@ -2,7 +2,14 @@
 
 This is a configurable jalali (persian, khorshidi, shamsi) date-picker build for Angular 2 applications and uses [jalali-moment](https://github.com/fingerpich/moment-jalaali) as its dependency.
 
-<img alt="date picker" src="screenshots/NgAsax.png" width="200px"><img alt="date picker" src="screenshots/NgAsax-2.png" width="200px">
+## Screenshots
+
+<img alt="date picker" src="./screenshots/ng_asax.gif"width="300px" >
+
+<div>
+<img alt="date picker" src="https://github.com/developer-ghahremani/ng-asax/blob/master/projects/ng-asax-jalali-date-range-picker/screenshots/NgAsax.png?raw=true"width="300px" >
+<img alt="date picker" src="https://github.com/developer-ghahremani/ng-asax/blob/master/projects/ng-asax-jalali-date-range-picker/screenshots/NgAsax-2.png?raw=true"width="300px" >
+</div>
 
 1. Download from npm:
    `npm install ng-asax-jalali-date-picker`
