@@ -1,5 +1,6 @@
 <div class="ng-date-range-picker_container">
   <div class="flex gap-2 relative w-min">
+    <!-- <p>VERSION 6</p> -->
     <div
       class="ng-date-range-picker_input-container"
       (click)="toggleShowDateRangePicker()"
@@ -16,8 +17,8 @@
     </div>
 
     <div
-      *ngIf="showDateRangePicker"
       style="width: 80vw"
+      *ngIf="showDateRangePicker"
       [ngClass]="{ 'left-0': !isRightAlign }"
       class="border border-1 border-solid border-gray-1 rounded-sm absolute top-6 z-50 bg-white grid grid-cols-1 md:grid-cols-7 mt-4"
     >

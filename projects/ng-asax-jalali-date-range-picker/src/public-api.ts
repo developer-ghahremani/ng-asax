@@ -3,4 +3,5 @@
  */
 
 export * from './lib/ng-asax-jalali-date-range-picker.service';
+export * from './lib/ng-asax-jalali-date-range-picker.module';
 export * from './lib/ng-asax-jalali-date-range-picker.component';

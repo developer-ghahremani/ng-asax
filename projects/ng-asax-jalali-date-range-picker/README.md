@@ -1,25 +1,82 @@
-# NgAsaxJalaliDatepicker
+# Angular ASAX Jalali DatePicker
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+This is a configurable jalali (persian, khorshidi, shamsi) date-picker build for Angular 2 applications and uses [jalali-moment](https://github.com/fingerpich/moment-jalaali) as its dependency.
 
-## Code scaffolding
+<img alt="date picker" src="screenshots/NgAsax.png" width="200px"><img alt="date picker" src="screenshots/NgAsax-2.png" width="200px">
 
-<!-- Run `ng generate component component-name --project ng-asax-jalali-date-range-picker` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ng-asax-jalali-date-range-picker`. -->
+1. Download from npm:
+   `npm install ng-asax-jalali-date-picker`
+2. import the `NgAsaxJalaliDatepickerModule` module in typescript (.ts) or es6 files like below:  
+   `import { NgAsaxJalaliDatepickerModule } from 'ng-asax-jalali-date-range-picker';`
+3. Add `NgAsaxJalaliDatepickerModule` to your module imports:
 
-> Note: Don't forget to add `--project ng-asax-jalali-date-range-picker` or else it will be added to the default project in your `angular.json` file.
+```ts
+ @NgModule({
+   ...
+   imports: [
+     ...
+     NgAsaxJalaliDatepickerModule
+   ]
+ })
+```
 
-<!-- ## Build -->
+## How to use
 
-<!-- Run `ng build ng-asax-jalali-date-range-picker` to build the project. The build artifacts will be stored in the `dist/` directory. -->
+```html
+<ng-asax-jalali-date-range-picker [toDate]="toDate" [fromDate]="fromDate" [maxDate]="maxDate" [minDate]="minDate" (onChange)="handleChange($event)"></ng-asax-jalali-date-range-picker>
+```
 
-<!-- ## Publishing -->
+```ts
+import moment, { Moment } from "jalali-moment";
 
-<!-- After building your library with `ng build ng-asax-jalali-date-range-picker`, go to the dist folder `cd dist/ng-asax-jalali-date-range-picker` and run `npm publish`. -->
+import { Component } from "@angular/core";
 
-<!-- ## Running unit tests -->
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.scss",
+})
+export class AppComponent {
+  handleChange({ fromDate, toDate }: { fromDate: moment.Moment; toDate: moment.Moment }) {
+    this.fromDate = fromDate;
+    this.toDate = toDate;
+  }
 
-<!-- Run `ng test ng-asax-jalali-date-range-picker` to execute the unit tests via [Karma](https://karma-runner.github.io). -->
+  fromDate: Moment = moment().startOf("jYear");
+  minDate: Moment = moment().add(-1, "jYear");
+  maxDate: Moment = moment();
+  toDate: Moment = moment();
+}
+```
 
-## Further help
+<!-- [Demo](https://plnkr.co/XJSWtt) -->
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+#### How to use the output as a jalali (shamsi) date
+
+```ts
+import * as moment from 'jalali-moment';
+dateObject.format('jYYYY/jMM/jD)'
+```
+
+read [jalali-moment](https://github.com/fingerpich/jalali-moment)
+
+<!-- #### How to use it with system.js -->
+
+<!-- [this Demo](https://plnkr.co/XJSWtt) is using system.js. -->
+
+### Attributes (Input):
+
+all attributes in the following table could be used as
+
+|   Name   | Type     | Default                                    | Description                                                                                                                                                                                             |
+| :------: | -------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| fromDate | `Moment` | `moment().startOf('year')`                 | This is a validation rule, if the selected date will be before `minDate` the containing form will be invalid. Note: if provided as string format configuration should be provided in the config object. |
+|  toDate  | `Moment` | `moment()`                                 | This is a validation rule, if the selected date will be before `minDate` the containing form will be invalid. Note: if provided as string format configuration should be provided in the config object. |
+| minDate  | `Moment` | `moment().add(-1,'jYear').startOf('year')` | This is a validation rule, if the selected date will be before `minDate` the containing form will be invalid. Note: if provided as string format configuration should be provided in the config object. |
+| maxDate  | `Moment` | `moment()`                                 | This is a validation rule, if the selected date will be before `minDate` the containing form will be invalid. Note: if provided as string format configuration should be provided in the config object. |
+
+### Attributes (Output):
+
+| Name     | Event Arguments | Applies To  | Description                                                                                                                                                  |
+| -------- | :-------------: | :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| onChange | `CalendarValue` | All Pickers | This event will be emitted on every valid value change, if you want to receive every value (valid and invalid) please use the native `ngModelChange` output. |

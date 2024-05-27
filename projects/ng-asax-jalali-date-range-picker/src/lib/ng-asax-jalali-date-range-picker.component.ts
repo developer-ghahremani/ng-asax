@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import moment, { Moment } from 'jalali-moment';
 
-import { CommonModule } from '@angular/common';
 import range from 'lodash/range';
 
 enum OptionType {
@@ -24,8 +23,6 @@ enum OptionType {
 
 @Component({
   selector: 'ng-asax-jalali-date-range-picker',
-  standalone: true,
-  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: `./ng-asax-jalali-date-range-picker.component.html`,
   styleUrls: [`./ng-asax-jalali-date-range-picker.component.scss`],
@@ -38,8 +35,7 @@ export class NgAsaxJalaliDatepickerComponent {
   showDateRangePicker: boolean = false;
   showFromMonthPicker: boolean = false;
   isFocusInsideComponent: boolean = false;
-  @ViewChild('monthInputNumber') monthInputNumber?: ElementRef;
-  @ViewChild('dayInputNumber') dayInputNumber?: ElementRef;
+
   OptionType = OptionType;
   _toCalendar: {
     year: number;
@@ -77,17 +73,8 @@ export class NgAsaxJalaliDatepickerComponent {
       type: OptionType.fromFirstDayOfYear,
     },
   ];
-  @Input() isRightAlign: boolean = true;
-  @Input({ required: true }) fromDate: Moment = moment().startOf('year');
-  @Input({ required: true }) minDate: Moment = moment()
-    .add(-2, 'jYear')
-    .startOf('year');
-  @Input({ required: true }) toDate: Moment = moment();
-  @Input({ required: true }) maxDate: Moment = moment();
-  @Output() onChange = new EventEmitter<{ fromDate: Moment; toDate: Moment }>();
   daysOfWeek: string[] = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
   years: number[] = Array.from({ length: 15 }, (_, i) => 1392 + i);
-
   monthsOfYear: string[] = [
     'فروردین',
     'اردیبهشت',
@@ -102,6 +89,17 @@ export class NgAsaxJalaliDatepickerComponent {
     'بهمن',
     'اسفند',
   ];
+
+  @ViewChild('monthInputNumber') monthInputNumber?: ElementRef;
+  @ViewChild('dayInputNumber') dayInputNumber?: ElementRef;
+  @Input('isRightAlign') isRightAlign: boolean = true;
+  @Input({ required: true }) fromDate: Moment = moment().startOf('year');
+  @Input({ required: true }) minDate: Moment = moment()
+    .add(-2, 'jYear')
+    .startOf('year');
+  @Input({ required: true }) toDate: Moment = moment();
+  @Input({ required: true }) maxDate: Moment = moment();
+  @Output() onChange = new EventEmitter<{ fromDate: Moment; toDate: Moment }>();
 
   constructor() {
     moment.updateLocale('en', { week: { dow: 6, doy: 0 } });
@@ -650,9 +648,9 @@ export class NgAsaxJalaliDatepickerComponent {
 
     if (optionType === OptionType.lastWeek) {
       const firstDayOfWeek: Moment = moment()
-        .startOf('jw')
+        .startOf('w')
         .startOf('day')
-        .add(-7, 'day');
+        .add(-7, 'jDay');
 
       this._fromCalendar = {
         month: firstDayOfWeek.jMonth(),
