@@ -7,8 +7,6 @@
     "build": "ng build",
     "build:lib": "cd projects/ng-asax-jalali-date-range-picker && ng build",
     "publish:lib": "npm run build:lib && cd dist/ng-asax-jalali-date-range-picker && npm link && npm publish",
-    "build:lib2": "cd projects/ng-test2 && ng build",
-    "publish:lib2": "npm run build:lib2 && cd dist/ng-test2 && npm link && npm publish",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -25,7 +23,8 @@
     "jalali-moment": "^3.3.11",
     "rxjs": "7.5.6",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^15.0.1",
