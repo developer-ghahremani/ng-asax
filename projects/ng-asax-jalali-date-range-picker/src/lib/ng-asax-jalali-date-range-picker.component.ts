@@ -92,13 +92,11 @@ export class NgAsaxJalaliDatepickerComponent {
 
   @ViewChild('monthInputNumber') monthInputNumber?: ElementRef;
   @ViewChild('dayInputNumber') dayInputNumber?: ElementRef;
-  @Input('isRightAlign') isRightAlign: boolean = true;
-  @Input({ required: true }) fromDate: Moment = moment().startOf('year');
-  @Input({ required: true }) minDate: Moment = moment()
-    .add(-2, 'jYear')
-    .startOf('year');
-  @Input({ required: true }) toDate: Moment = moment();
-  @Input({ required: true }) maxDate: Moment = moment();
+  @Input() isRightAlign: boolean = true;
+  @Input() fromDate: Moment = moment().startOf('year');
+  @Input() minDate: Moment = moment().add(-2, 'jYear').startOf('year');
+  @Input() toDate: Moment = moment();
+  @Input() maxDate: Moment = moment();
   @Output() onChange = new EventEmitter<{ fromDate: Moment; toDate: Moment }>();
 
   constructor() {
