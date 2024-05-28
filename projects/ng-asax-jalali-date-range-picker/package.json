@@ -1,9 +1,9 @@
 {
   "name": "ng-asax-jalali-date-range-picker",
-  "version": "0.2.14",
+  "version": "0.2.19`",
   "peerDependencies": {
-    "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0",
+    "@angular/common": "^15.0.1",
+    "@angular/core": "^15.0.1",
     "jalali-moment": "^3.3.11",
     "lodash": "^4.17.21"
   },
