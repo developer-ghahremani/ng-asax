@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import moment, { Moment } from 'jalali-moment';
 
-import range from 'lodash/range';
+import { range } from 'lodash';
 
 enum OptionType {
   fromFirstDayOfYear = 'fromFirstDayOfYear',
