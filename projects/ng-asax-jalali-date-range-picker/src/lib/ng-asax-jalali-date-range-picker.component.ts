@@ -481,6 +481,16 @@ export class NgAsaxJalaliDatepickerComponent {
     this.isComponentClicked = true;
   }
 
+  @HostListener('mousewheel', ['$event'])
+  onMousewheel(event: { wheelDelta: number }) {
+    if (event.wheelDelta > 0) {
+      this.handlePrevious();
+    }
+    if (event.wheelDelta < 0) {
+      this.handleNext();
+    }
+  }
+
   @HostListener('document:keydown.escape', ['$event'])
   handleCloseDatePicker() {
     this.showDateRangePicker = false;

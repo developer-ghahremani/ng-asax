@@ -19,7 +19,8 @@ export class AppComponent {
     this.toDate = toDate;
   }
 
-  fromDate: Moment = moment().startOf('jYear');
+  fromDate: Moment = moment().add(-5, 'jDay');
+  // fromDate: Moment = moment().startOf('jYear');
   minDate: Moment = moment().add(-1, 'jYear');
   maxDate: Moment = moment();
   toDate: Moment = moment();
