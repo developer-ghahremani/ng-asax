@@ -1,9 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
 @import "assets/Webfonts/fontiran.css";
 
-// @import "./tailwind";
+@import "./tailwind";
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

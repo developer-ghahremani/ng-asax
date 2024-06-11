@@ -483,6 +483,8 @@ export class NgAsaxJalaliDatepickerComponent {
 
   @HostListener('mousewheel', ['$event'])
   onMousewheel(event: { wheelDelta: number }) {
+    console.log('MOUSE SCROLL EVENT FIRED');
+
     if (event.wheelDelta > 0) {
       this.handlePrevious();
     }
