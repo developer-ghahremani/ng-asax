@@ -35,6 +35,7 @@ export class NgAsaxJalaliDatepickerComponent {
   showDateRangePicker: boolean = false;
   showFromMonthPicker: boolean = false;
   isFocusInsideComponent: boolean = false;
+  dateFormat: string = 'jYYYY-jMM-jDD';
 
   OptionType = OptionType;
   _toCalendar: {
@@ -104,7 +105,7 @@ export class NgAsaxJalaliDatepickerComponent {
   }
 
   getWeekDayOfAYear(year: number, month: number): number {
-    return moment(`${year}-${month + 1}-01`, 'jYYYY-jMM-jDD').weekday();
+    return moment(`${year}-${month + 1}-01`, this.dateFormat).weekday();
   }
 
   ngOnInit(): void {
@@ -151,23 +152,27 @@ export class NgAsaxJalaliDatepickerComponent {
 
   isInRange = (date: string): boolean => {
     if (this._tempFromDate !== undefined)
-      return this._tempFromDate.format('jYYYY-jMM-jDD') === date;
-    const day = moment(date, 'jYYYY-jMM-jDD');
-    return day.isSameOrAfter(this.fromDate) && day.isSameOrBefore(this.toDate);
+      return this._tempFromDate.format(this.dateFormat) === date;
+    const day = moment(date, this.dateFormat);
+
+    return (
+      date === this.fromDate.format(this.dateFormat) ||
+      (day.isSameOrAfter(this.fromDate) && day.isSameOrBefore(this.toDate))
+    );
   };
 
   isFirstRangeDay = (date: string): boolean => {
     if (this._tempFromDate !== undefined)
-      return this._tempFromDate.format('jYYYY-jMM-jDD') === date;
-    return date === this.fromDate.format('jYYYY-jMM-jDD');
+      return this._tempFromDate.format(this.dateFormat) === date;
+    return date === this.fromDate.format(this.dateFormat);
   };
 
   isLastRangeDay = (date: string): boolean => {
-    return date === this.toDate.format('jYYYY-jMM-jDD');
+    return date === this.toDate.format(this.dateFormat);
   };
 
   isDisabled = (date: string): boolean => {
-    const castedDate = moment(date, 'jYYYY-jMM-jDD');
+    const castedDate = moment(date, this.dateFormat);
     return (
       castedDate.isAfter(this.maxDate) || castedDate.isBefore(this.minDate)
     );
@@ -203,7 +208,7 @@ export class NgAsaxJalaliDatepickerComponent {
         }-${
           this._fromCalendar.month === 11 ? 1 : this._fromCalendar.month + 2
         }-01`,
-        'jYYYY-jMM-jDD'
+        this.dateFormat
       ).weekday(),
     };
 
@@ -278,7 +283,7 @@ export class NgAsaxJalaliDatepickerComponent {
             ? this._toCalendar.year - 1
             : this._toCalendar.year
         }-${this._toCalendar.month === 0 ? 12 : this._toCalendar.month}-01`,
-        'jYYYY-jMM-jDD'
+        this.dateFormat
       ).weekday(),
     };
   };
@@ -300,7 +305,7 @@ export class NgAsaxJalaliDatepickerComponent {
   }
 
   isLeapYear(year: number): boolean {
-    return moment(`${year}-01-02`, 'jYYYY-jMM-jDD').jIsLeapYear();
+    return moment(`${year}-01-02`, this.dateFormat).jIsLeapYear();
   }
 
   handleFromMonthClick(month: number) {
@@ -371,7 +376,7 @@ export class NgAsaxJalaliDatepickerComponent {
       dayCount:
         month === 11 && this.isLeapYear(this._toCalendar.year)
           ? 30
-          : month === 0
+          : month === 11
           ? 29
           : month > 5
           ? 30
@@ -443,26 +448,26 @@ export class NgAsaxJalaliDatepickerComponent {
   handleClickDay(date: string) {
     if (this.isDisabled(date)) return;
     if (this._tempFromDate === undefined) {
-      this._tempFromDate = moment(date, 'jYYYY-jMM-jDD');
+      this._tempFromDate = moment(date, this.dateFormat);
       return;
     }
 
-    if (moment(date, 'jYYYY-jMM-jDD').isBefore(this._tempFromDate)) {
-      this._tempFromDate = moment(date, 'jYYYY-jMM-jDD');
+    if (moment(date, this.dateFormat).isBefore(this._tempFromDate)) {
+      this._tempFromDate = moment(date, this.dateFormat);
       return;
     }
 
     this.onChange.emit({
       fromDate: this._tempFromDate,
-      toDate: moment(date, 'jYYYY-jMM-jDD'),
+      toDate: moment(date, this.dateFormat),
     });
     this._tempFromDate = undefined;
     // this.showDateRangePicker = false;
   }
 
   getDate(type: 'from' | 'to') {
-    if (type === 'from') return this.fromDate.format('jYYYY-jMM-jDD');
-    return this.toDate.format('jYYYY-jMM-jDD');
+    if (type === 'from') return this.fromDate.format(this.dateFormat);
+    return this.toDate.format(this.dateFormat);
   }
 
   getPersianTextDate(type: 'from' | 'to') {
@@ -798,6 +803,7 @@ export class NgAsaxJalaliDatepickerComponent {
 
     this.monthInputNumber.nativeElement.value = '';
   }
+
   setDay() {
     if (!this.dayInputNumber) return;
     this._tempFromDate = undefined;
