@@ -32,7 +32,7 @@ export class NgAsaxJalaliDatepickerComponent {
   showToMonthPicker: boolean = false;
   isComponentClicked: boolean = false;
   showFromYearPicker: boolean = false;
-  showDateRangePicker: boolean = false;
+  showDateRangePicker: boolean = true;
   showFromMonthPicker: boolean = false;
   isFocusInsideComponent: boolean = false;
   dateFormat: string = 'jYYYY-jMM-jDD';
@@ -446,6 +446,8 @@ export class NgAsaxJalaliDatepickerComponent {
   }
 
   handleClickDay(date: string) {
+    // console.log(date, 'DATE');
+
     if (this.isDisabled(date)) return;
     if (this._tempFromDate === undefined) {
       this._tempFromDate = moment(date, this.dateFormat);
