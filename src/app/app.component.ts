@@ -1,6 +1,8 @@
+import { AbstractControl, FormControl } from '@angular/forms';
 import moment, { Moment } from 'jalali-moment';
 
 import { Component } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  isRightAlign: boolean = true;
+  fromDate: Moment = moment().add(-5, 'jDay');
+  minDate: Moment = moment().add(-1, 'jYear');
+  maxDate: Moment = moment();
+  toDate: Moment = moment();
+
   handleChange({
     fromDate,
     toDate,
@@ -18,10 +26,4 @@ export class AppComponent {
     this.fromDate = fromDate;
     this.toDate = toDate;
   }
-
-  fromDate: Moment = moment().add(-5, 'jDay');
-  // fromDate: Moment = moment().startOf('jYear');
-  minDate: Moment = moment().add(-1, 'jYear');
-  maxDate: Moment = moment();
-  toDate: Moment = moment();
 }

@@ -2,7 +2,7 @@
 
 This is a configurable jalali (persian, khorshidi, shamsi) date-picker build for Angular 2 applications and uses [jalali-moment](https://github.com/fingerpich/moment-jalaali) as its dependency.
 
-[Click to preview a simple Demo](https://6655bd9291b5cd009e856838--singular-cactus-657521.netlify.app/)
+[Click to preview a simple Demo](https://66bc9993b2c61f7e5f0d04fe--wondrous-heliotrope-49a082.netlify.app/)
 
 ## Screenshots
 

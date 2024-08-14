@@ -32,7 +32,7 @@ export class NgAsaxJalaliDatepickerComponent {
   showToMonthPicker: boolean = false;
   isComponentClicked: boolean = false;
   showFromYearPicker: boolean = false;
-  showDateRangePicker: boolean = true;
+  showDateRangePicker: boolean = false;
   showFromMonthPicker: boolean = false;
   isFocusInsideComponent: boolean = false;
   dateFormat: string = 'jYYYY-jMM-jDD';
