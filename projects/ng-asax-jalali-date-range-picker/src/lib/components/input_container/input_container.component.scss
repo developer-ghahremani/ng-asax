@@ -1,0 +1,14 @@
+.ng-asax-jalali-date-picker {
+  &__input_container {
+    border: 1px solid red;
+    padding-left: 14px;
+    padding-right: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.25rem;
+    width: 100%;
+  }
+}

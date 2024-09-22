@@ -1,0 +1,54 @@
+<!-- <ng-container
+  *ngIf="inputStyle === 'inlineStyle'; then inlineStyle; else separateStyle"
+></ng-container>
+<ng-template #inlineStyle>
+  <div class="ng-asax-jalali-date-picker__input_container">
+    <span (click)="handleTogglePicker()">
+      <app-svg-icon
+        [width]="'20'"
+        [height]="'20'"
+        name="calendar"
+        [stroke]="'#292D32'"
+      ></app-svg-icon>
+    </span>
+    <div
+      class="flex items-center pr-[8px] pl-[12px] gap-1 [&>p]:text-[14px] [&>p]:mb-0"
+    >
+      <p>
+        {{ fromDate }}
+      </p>
+      <p>-</p>
+      <p>
+        {{ toDate }}
+      </p>
+    </div>
+    <app-svg-icon
+      [stroke]="'#292D32'"
+      name="cross"
+      [strokeWidth]="'2'"
+      [width]="'20'"
+      [height]="'20'"
+    ></app-svg-icon>
+  </div>
+</ng-template>
+<ng-template #separateStyle>
+  <div class="flex gap-2">
+    <div class="ng-date-range-picker_input-container">
+      <p
+        (click)="handleTogglePicker()"
+        class="ng-date-range-picker_input-label"
+      >
+        از تاریخ
+      </p>
+      <p>{{ fromDate }}</p>
+    </div>
+
+    <div
+      (click)="handleTogglePicker()"
+      class="ng-date-range-picker_input-container"
+    >
+      <p class="ng-date-range-picker_input-label">تا تاریخ</p>
+      <p>{{ toDate }}</p>
+    </div>
+  </div>
+</ng-template> -->

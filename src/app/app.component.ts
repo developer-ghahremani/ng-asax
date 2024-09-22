@@ -1,8 +1,6 @@
-import { AbstractControl, FormControl } from '@angular/forms';
 import moment, { Moment } from 'jalali-moment';
 
 import { Component } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',

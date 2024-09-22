@@ -36,7 +36,6 @@ export class NgAsaxJalaliDatepickerComponent {
   showFromMonthPicker: boolean = false;
   isFocusInsideComponent: boolean = false;
   dateFormat: string = 'jYYYY-jMM-jDD';
-
   OptionType = OptionType;
   _toCalendar: {
     year: number;
@@ -50,7 +49,6 @@ export class NgAsaxJalaliDatepickerComponent {
     dayCount: 31 | 30 | 29;
     dayOfFirstDate: number;
   } = { year: moment().jYear(), month: 1, dayCount: 31, dayOfFirstDate: 0 };
-
   _tempFromDate?: Moment;
   options: { title: string; type: OptionType; disabled?: boolean }[] = [
     {
@@ -90,7 +88,6 @@ export class NgAsaxJalaliDatepickerComponent {
     'بهمن',
     'اسفند',
   ];
-
   @ViewChild('monthInputNumber') monthInputNumber?: ElementRef;
   @ViewChild('dayInputNumber') dayInputNumber?: ElementRef;
   @Input() isRightAlign: boolean = true;
@@ -99,15 +96,12 @@ export class NgAsaxJalaliDatepickerComponent {
   @Input() toDate: Moment = moment();
   @Input() maxDate: Moment = moment();
   @Output() onChange = new EventEmitter<{ fromDate: Moment; toDate: Moment }>();
-
   constructor() {
     moment.updateLocale('en', { week: { dow: 6, doy: 0 } });
   }
-
   getWeekDayOfAYear(year: number, month: number): number {
     return moment(`${year}-${month + 1}-01`, this.dateFormat).weekday();
   }
-
   ngOnInit(): void {
     this._fromCalendar = {
       month: this.toDate.jMonth() === 11 ? 0 : this.toDate.jMonth() - 1,
@@ -149,39 +143,32 @@ export class NgAsaxJalaliDatepickerComponent {
       ),
     };
   }
-
   isInRange = (date: string): boolean => {
     if (this._tempFromDate !== undefined)
       return this._tempFromDate.format(this.dateFormat) === date;
     const day = moment(date, this.dateFormat);
-
     return (
       date === this.fromDate.format(this.dateFormat) ||
       (day.isSameOrAfter(this.fromDate) && day.isSameOrBefore(this.toDate))
     );
   };
-
   isFirstRangeDay = (date: string): boolean => {
     if (this._tempFromDate !== undefined)
       return this._tempFromDate.format(this.dateFormat) === date;
     return date === this.fromDate.format(this.dateFormat);
   };
-
   isLastRangeDay = (date: string): boolean => {
     return date === this.toDate.format(this.dateFormat);
   };
-
   isDisabled = (date: string): boolean => {
     const castedDate = moment(date, this.dateFormat);
     return (
       castedDate.isAfter(this.maxDate) || castedDate.isBefore(this.minDate)
     );
   };
-
   toggleShowDateRangePicker() {
     this.showDateRangePicker = !this.showDateRangePicker;
   }
-
   handleNext = () => {
     this._fromCalendar = {
       month: this._fromCalendar.month === 11 ? 0 : this._fromCalendar.month + 1,
@@ -211,7 +198,6 @@ export class NgAsaxJalaliDatepickerComponent {
         this.dateFormat
       ).weekday(),
     };
-
     this._toCalendar = {
       month: this._toCalendar.month === 11 ? 0 : this._toCalendar.month + 1,
       year:
@@ -238,7 +224,6 @@ export class NgAsaxJalaliDatepickerComponent {
       ),
     };
   };
-
   handlePrevious = () => {
     this._fromCalendar = {
       month: this._fromCalendar.month === 0 ? 11 : this._fromCalendar.month - 1,
@@ -287,27 +272,21 @@ export class NgAsaxJalaliDatepickerComponent {
       ).weekday(),
     };
   };
-
   toggleFromMonthPicker() {
     this.showFromMonthPicker = !this.showFromMonthPicker;
   }
-
   toggleToMonthPicker() {
     this.showToMonthPicker = !this.showToMonthPicker;
   }
-
   toggleFromYearPicker() {
     this.showFromYearPicker = !this.showFromYearPicker;
   }
-
   toggleToYearPicker() {
     this.showToYearPicker = !this.showToYearPicker;
   }
-
   isLeapYear(year: number): boolean {
     return moment(`${year}-01-02`, this.dateFormat).jIsLeapYear();
   }
-
   handleFromMonthClick(month: number) {
     this._fromCalendar = {
       ...this._fromCalendar,
@@ -345,7 +324,6 @@ export class NgAsaxJalaliDatepickerComponent {
     };
     this.showFromMonthPicker = false;
   }
-
   handleToMonthClick(month: number) {
     this._fromCalendar = {
       ...this._fromCalendar,
@@ -384,11 +362,9 @@ export class NgAsaxJalaliDatepickerComponent {
     };
     this.showToMonthPicker = false;
   }
-
   getRangeDays(count: number): number[] {
     return range(1, count + 1, 1);
   }
-
   handleFromYearClick(year: number) {
     this._fromCalendar = {
       ...this._fromCalendar,
@@ -412,10 +388,8 @@ export class NgAsaxJalaliDatepickerComponent {
           : this._toCalendar.dayCount,
       dayOfFirstDate: this.getWeekDayOfAYear(year, this._toCalendar.month),
     };
-
     this.showFromYearPicker = false;
   }
-
   handleToYearClick(year: number) {
     this._fromCalendar = {
       ...this._fromCalendar,
@@ -444,21 +418,17 @@ export class NgAsaxJalaliDatepickerComponent {
     };
     this.showToYearPicker = false;
   }
-
   handleClickDay(date: string) {
     // console.log(date, 'DATE');
-
     if (this.isDisabled(date)) return;
     if (this._tempFromDate === undefined) {
       this._tempFromDate = moment(date, this.dateFormat);
       return;
     }
-
     if (moment(date, this.dateFormat).isBefore(this._tempFromDate)) {
       this._tempFromDate = moment(date, this.dateFormat);
       return;
     }
-
     this.onChange.emit({
       fromDate: this._tempFromDate,
       toDate: moment(date, this.dateFormat),
@@ -466,12 +436,10 @@ export class NgAsaxJalaliDatepickerComponent {
     this._tempFromDate = undefined;
     // this.showDateRangePicker = false;
   }
-
   getDate(type: 'from' | 'to') {
     if (type === 'from') return this.fromDate.format(this.dateFormat);
     return this.toDate.format(this.dateFormat);
   }
-
   getPersianTextDate(type: 'from' | 'to') {
     if (type === 'from')
       return `${this.fromDate.format('jD')} ${
@@ -481,17 +449,14 @@ export class NgAsaxJalaliDatepickerComponent {
       this.monthsOfYear[+this.toDate.format('jM') - 1]
     } ${this.toDate.format('jYYYY')}`;
   }
-
   @HostListener('click')
   clickInside() {
     this.isFocusInsideComponent = true;
     this.isComponentClicked = true;
   }
-
   @HostListener('mousewheel', ['$event'])
   onMousewheel(event: { wheelDelta: number }) {
     console.log('MOUSE SCROLL EVENT FIRED');
-
     if (event.wheelDelta > 0) {
       this.handlePrevious();
     }
@@ -499,12 +464,10 @@ export class NgAsaxJalaliDatepickerComponent {
       this.handleNext();
     }
   }
-
   @HostListener('document:keydown.escape', ['$event'])
   handleCloseDatePicker() {
     this.showDateRangePicker = false;
   }
-
   @HostListener('document:click')
   clickout() {
     if (!this.isFocusInsideComponent && this.isComponentClicked) {
@@ -513,7 +476,6 @@ export class NgAsaxJalaliDatepickerComponent {
     }
     this.isFocusInsideComponent = false;
   }
-
   handleOptionClicked(optionType: OptionType) {
     if (optionType !== OptionType.tillNow) this._tempFromDate = undefined;
     if (optionType === OptionType.fromFirstDayOfYear) {
@@ -638,7 +600,6 @@ export class NgAsaxJalaliDatepickerComponent {
           moment().jMonth()
         ),
       };
-
       this._toCalendar = {
         year:
           moment().jMonth() === 11 ? moment().jYear() + 1 : moment().jYear(),
@@ -656,19 +617,16 @@ export class NgAsaxJalaliDatepickerComponent {
           moment().jMonth() === 11 ? 0 : moment().jMonth() + 1
         ),
       };
-
       this.onChange.emit({
         fromDate: moment().startOf('jDay'),
         toDate: moment(),
       });
     }
-
     if (optionType === OptionType.lastWeek) {
       const firstDayOfWeek: Moment = moment()
         .startOf('w')
         .startOf('day')
         .add(-7, 'jDay');
-
       this._fromCalendar = {
         month: firstDayOfWeek.jMonth(),
         year: firstDayOfWeek.jYear(),
@@ -686,7 +644,6 @@ export class NgAsaxJalaliDatepickerComponent {
           firstDayOfWeek.jMonth()
         ),
       };
-
       this._toCalendar = {
         year:
           firstDayOfWeek.jMonth() === 11
@@ -709,13 +666,11 @@ export class NgAsaxJalaliDatepickerComponent {
           firstDayOfWeek.jMonth() === 11 ? 0 : firstDayOfWeek.jMonth() + 1
         ),
       };
-
       this.onChange.emit({
         fromDate: firstDayOfWeek,
         toDate: firstDayOfWeek.clone().add(6, 'day'),
       });
     }
-
     if (optionType === OptionType.tillNow) {
       this._toCalendar = {
         year: moment().jYear(),
@@ -733,7 +688,6 @@ export class NgAsaxJalaliDatepickerComponent {
           moment().jMonth()
         ),
       };
-
       this._fromCalendar = {
         year: moment().jMonth() === 0 ? moment().jYear() - 1 : moment().jYear(),
         month: moment().jMonth() === 0 ? 11 : moment().jMonth() - 1,
@@ -750,7 +704,6 @@ export class NgAsaxJalaliDatepickerComponent {
           moment().jMonth() === 0 ? 11 : moment().jMonth() - 1
         ),
       };
-
       this.onChange.emit({
         fromDate: this._tempFromDate?.clone().startOf('day') || moment(),
         toDate: moment(),
@@ -758,7 +711,6 @@ export class NgAsaxJalaliDatepickerComponent {
       this._tempFromDate = undefined;
     }
   }
-
   setMonth() {
     if (!this.monthInputNumber) return;
     this._tempFromDate = undefined;
@@ -797,15 +749,12 @@ export class NgAsaxJalaliDatepickerComponent {
         moment().jMonth() == 11 ? 0 : moment().jMonth() - 1
       ),
     };
-
     this.onChange.emit({
       fromDate: startDate,
       toDate: moment(),
     });
-
     this.monthInputNumber.nativeElement.value = '';
   }
-
   setDay() {
     if (!this.dayInputNumber) return;
     this._tempFromDate = undefined;
@@ -844,12 +793,10 @@ export class NgAsaxJalaliDatepickerComponent {
         moment().jMonth() == 11 ? 0 : moment().jMonth() - 1
       ),
     };
-
     this.onChange.emit({
       fromDate: startDate,
       toDate: moment(),
     });
-
     this.dayInputNumber.nativeElement.value = '';
   }
 }
