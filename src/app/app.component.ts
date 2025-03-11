@@ -4,15 +4,16 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   isRightAlign: boolean = true;
-  fromDate: Moment = moment().add(-5, 'jDay');
-  minDate: Moment = moment().add(-1, 'jYear');
-  maxDate: Moment = moment();
   toDate: Moment = moment();
+  maxDate: Moment = moment();
+  minDate: Moment = moment().add(-1, 'jYear');
+  fromDate: Moment = moment().add(-5, 'jDay');
+  selected: 'inlineStyle' | 'separateStyle' = 'separateStyle';
 
   handleChange({
     fromDate,

@@ -1,39 +1,38 @@
 <div class="ng-date-range-picker_container">
-  <div class="flex gap-2 relative w-min">
+  <div style="position: relative">
+    <app-input-container-component
+      [toDate]="getDate('to')"
+      [inputStyle]="inputStyle"
+      [fromDate]="getDate('from')"
+      (onTogglePicker)="showDateRangePicker = !showDateRangePicker"
+    />
     <div
-      class="ng-date-range-picker_input-container"
-      (click)="toggleShowDateRangePicker()"
-    >
-      <p class="ng-date-range-picker_input-label">از تاریخ</p>
-      <p>{{ getDate("from") }}</p>
-    </div>
-
-    <div
-      class="ng-date-range-picker_input-container"
-      (click)="toggleShowDateRangePicker()"
-    >
-      <p class="ng-date-range-picker_input-label">تا تاریخ</p>
-      <p>{{ getDate("to") }}</p>
-    </div>
-
-    <div
-      style="width: 70vw"
       *ngIf="showDateRangePicker"
+      class="flex absolute  border-gray-1"
       [ngClass]="{ 'left-0': !isRightAlign }"
-      class="border border-1 border-solid border-gray-1 rounded-sm absolute top-6 z-50 bg-white grid grid-cols-1 md:grid-cols-7 mt-4 shadow-lg"
+      style="
+        min-height: 300px;
+        width: 816px;
+        border-radius: 8px;
+        top: 32px;
+        z-index: 50;
+        margin-top: 16px;
+        background-color: white;
+      "
     >
-      <div class="flex flex-col border-l border-gray-1 col-span-2">
+      
+      <div style="width: 220px" class="flex flex-col border-l-gray-1">
         <div
-          *ngFor="let item of options; let i = index"
-          class="border-b border-gray-1 py-2 px-2 cursor-pointer"
+          *ngFor="let item of quickNavigationOption; let i = index"
+          class="border-gray-1 py-1 px-2 cursor-pointer"
           (click)="handleOptionClicked(item.type)"
         >
-          <p>
+          <p class="mb-0">
             {{ item.title }}
           </p>
         </div>
         <div
-          class="border-b border-gray-1 py-2 px-2"
+          class="border-gray-1 py-2 px-2"
           [ngClass]="
             _tempFromDate ? 'cursor-pointer' : 'cursor-not-allowed text-gray-2'
           "
@@ -41,61 +40,64 @@
             _tempFromDate ? handleOptionClicked(OptionType.tillNow) : undefined
           "
         >
-          <p>
+          <p class="mb-0">
             {{ "تا امروز" }}
           </p>
         </div>
 
-        <div class="flex flex-col items-start px-2 py-4">
-          <div
-            class="flex flex-1 items-center justify-center gap-1 border border-gray-1 rounded-full px-1"
-          >
-            <input
-              #monthInputNumber
-              type="number"
-              placeholder="از ماه قبل تا امروز"
-              class="text-center outline-none w-32 rounded-full mb-1"
-            />
-            <!-- (blur)="setMonth()" -->
-            <button
-              class="bg-primary-1 px-2 py-1 text-white text-xs rounded-full"
-              type="button"
-              (click)="setMonth()"
-            >
-              انتخاب
-            </button>
-          </div>
-          <div
-            class="flex flex-1 items-center justify-center gap-1 border border-gray-1 rounded-full px-1 mt-2"
-          >
-            <input
-              #dayInputNumber
-              type="number"
-              placeholder="از روز قبل تا امروز"
-              class="text-center outline-none w-32 rounded-full mb-1"
-            />
-            <button
-              class="bg-primary-1 px-2 py-1 text-white text-xs rounded-full"
-              type="button"
-              (click)="setDay()"
-            >
-              انتخاب
-            </button>
-          </div>
-        </div>
+        <!--        <div class="flex flex-col items-start px-2 py-4">-->
+        <!--          <div-->
+        <!--            class="flex flex-1 items-center justify-center gap-1 border border-gray-1 rounded-full px-1"-->
+        <!--          >-->
+        <!--            <input-->
+        <!--              #monthInputNumber-->
+        <!--              type="number"-->
+        <!--              placeholder="از ماه قبل تا امروز"-->
+        <!--              class="text-center outline-none w-32 rounded-full mb-1"-->
+        <!--            />-->
+        <!--            <button-->
+        <!--              class="px-2 py-1 text-white text-xs rounded-full"-->
+        <!--              [style]="{ 'background-color': primaryColor }"-->
+        <!--              type="button"-->
+        <!--              (click)="setMonth()"-->
+        <!--            >-->
+        <!--              انتخاب-->
+        <!--            </button>-->
+        <!--          </div>-->
+        <!--          <div-->
+        <!--            class="flex flex-1 items-center justify-center gap-1 border border-gray-1 rounded-full px-1 mt-2"-->
+        <!--          >-->
+        <!--            <input-->
+        <!--              #dayInputNumber-->
+        <!--              type="number"-->
+        <!--              placeholder="از روز قبل تا امروز"-->
+        <!--              class="text-center outline-none w-32 rounded-full mb-1"-->
+        <!--            />-->
+        <!--            <button-->
+        <!--              class="px-2 py-1 text-white text-xs rounded-full"-->
+        <!--              type="button"-->
+        <!--              [style]="{ 'background-color': primaryColor }"-->
+        <!--              (click)="setDay()"-->
+        <!--            >-->
+        <!--              انتخاب-->
+        <!--            </button>-->
+        <!--          </div>-->
+        <!--        </div>-->
       </div>
-      <div class="flex flex-col col-span-5">
-        <div class="flex md:flex-row flex-col">
-          <!-- ------------------ FROM CALENDAR ------------------ -->
-          <div class="w-full relative flex-1">
+
+      <div class="flex flex-1">
+        <div class="flex flex-1">
+          <div class="relative flex-1">
             <div class="bg-gray-200 p-2">
               <div
                 class="flex-1 flex items-center justify-center bg-white rounded py-1"
               >
-                <p>{{ getPersianTextDate("from") }}</p>
+                <p class="mb-0">{{ getPersianTextDate("from") }}</p>
               </div>
             </div>
-            <div class="flex justify-between mr-2 mt-5">
+
+            <!--            FROM HEADER-->
+            <div class="flex justify-between mr-2 items-center mt-4">
               <div
                 (click)="handlePrevious()"
                 class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded cursor-pointer"
@@ -115,38 +117,47 @@
                 </svg>
               </div>
               <div class="flex flex-1 justify-center gap-1">
-                <p class="cursor-pointer" (click)="toggleFromMonthPicker()">
-                  {{ monthsOfYear[_fromCalendar.month] }}
+                <p class="cursor-pointer mb-0" (click)="toggleFromMonthPicker()">
+                  {{ monthsOfYear[calendarConfig.fromCalendar.month] }}
                 </p>
-                <p class="cursor-pointer" (click)="toggleFromYearPicker()">
-                  {{ _fromCalendar.year }}
+                <p class="cursor-pointer mb-0" (click)="toggleFromYearPicker()">
+                  {{ calendarConfig.fromCalendar.year }}
                 </p>
               </div>
 
               <div class="w-4"></div>
             </div>
-            <!-- ---------------- FROM MONTH PICKER ---------------- -->
+            <!--            FROM HEADER-->
+
+            <!--            From Month Picker -->
             <div
               *ngIf="showFromMonthPicker"
+
               class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
             >
               <div
                 *ngFor="let month of monthsOfYear; let i = index"
                 class="border rounded flex justify-center items-center cursor-pointer"
+                [style]="{
+                  'background-color':
+                    i === calendarConfig.fromCalendar.month
+                      ? primaryColor
+                      : 'white'
+                }"
                 [ngClass]="{
-                  'bg-primary-1 text-white !border-none':
-                    i === _fromCalendar.month
+                  'text-white !border-none':
+                    i === calendarConfig.fromCalendar.month
                 }"
                 (click)="handleFromMonthClick(i)"
               >
-                <p>
+                <p class="mb-0">
                   {{ month }}
                 </p>
               </div>
             </div>
-            <!-- ---------------- FROM MONTH PICKER ---------------- -->
+            <!--            From Month Picker -->
 
-            <!-- ---------------- FROM YEAR PICKER ---------------- -->
+            <!--            From Year Picker -->
             <div
               *ngIf="showFromYearPicker"
               class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
@@ -154,91 +165,132 @@
               <div
                 class="flex justify-center items-center"
                 *ngFor="let year of years"
+                [style]="{
+                  'background-color':
+                    calendarConfig.fromCalendar.year === year
+                      ? primaryColor
+                      : 'white'
+                }"
                 [ngClass]="{
-                  'bg-primary-1 text-white rounded': _fromCalendar.year === year
+                  'text-white rounded':
+                    calendarConfig.fromCalendar.year === year
                 }"
               >
-                <p class="cursor-pointer" (click)="handleFromYearClick(year)">
+                <p
+                  class="cursor-pointer mb-0"
+                  (click)="handleFromYearClick(year)"
+                >
                   {{ year }}
                 </p>
               </div>
             </div>
-            <!-- ---------------- FROM YEAR PICKER ---------------- -->
+            <!--            From Year Picker -->
 
-            <div class="flex flex-1 mt-4 mr-2 ml-1">
+            <div class="flex flex-1 mr-2 ml-1 mt-4">
               <div
                 *ngFor="let item of daysOfWeek; let i = index"
                 class="flex-1 text-center"
               >
-                <p>
+                <p class="mb-0">
                   {{ item }}
                 </p>
               </div>
             </div>
 
-            <!-- ------------------ DAYS OF MONTH ------------------ -->
-            <div class="grid grid-cols-7 mt-3 mb-4 cursor-pointer mr-2 ml-1">
+            <div
+              class="grid grid-cols-7 mb-4 cursor-pointer mr-2 ml-1"
+              style="margin-top: 10px"
+            >
               <div
                 class="py-1"
                 style="margin-top: 2px; margin-bottom: 2px"
                 *ngFor="
-                  let item of getRangeDays(_fromCalendar.dayCount);
+                  let item of getRangeDays(
+                    calendarConfig.fromCalendar.dayCount
+                  );
                   let i = index
                 "
                 [style.grid-column-start]="
                   i === 0
-                    ? _fromCalendar.dayOfFirstDate === 0
+                    ? calendarConfig.fromCalendar.dayOfFirstDate === 0
                       ? 1
-                      : _fromCalendar.dayOfFirstDate + 1
+                      : calendarConfig.fromCalendar.dayOfFirstDate + 1
                     : undefined
                 "
-                [ngClass]="{
-                  'bg-primary-1 text-white': isInRange(
-                    _fromCalendar.year +
+                [style]="{
+                  'background-color': isInRange(
+                    calendarConfig.fromCalendar.year +
                       '-' +
-                      (_fromCalendar.month + 1 < 10 ? '0' : '') +
-                      (_fromCalendar.month + 1) +
+                      (calendarConfig.fromCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.fromCalendar.month + 1) +
+                      '-' +
+                      (item < 10 ? '0' : '') +
+                      item
+                  )
+                    ? primaryColor
+                    : isDisabled(
+                          calendarConfig.fromCalendar.year +
+                            '-' +
+                            (calendarConfig.fromCalendar.month + 1 < 10
+                              ? '0'
+                              : '') +
+                            (calendarConfig.fromCalendar.month + 1) +
+                            '-' +
+                            (item < 10 ? '0' : '') +
+                            item
+                        )
+                      ? '#f3f4f6'
+                      : ''
+                }"
+                [ngClass]="{
+                  'text-white': isInRange(
+                    calendarConfig.fromCalendar.year +
+                      '-' +
+                      (calendarConfig.fromCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.fromCalendar.month + 1) +
                       '-' +
                       (item < 10 ? '0' : '') +
                       item
                   ),
                   'rounded-r-xl': isFirstRangeDay(
-                    _fromCalendar.year +
+                    calendarConfig.fromCalendar.year +
                       '-' +
-                      (_fromCalendar.month + 1 < 10 ? '0' : '') +
-                      (_fromCalendar.month + 1) +
+                      (calendarConfig.fromCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.fromCalendar.month + 1) +
                       '-' +
                       (item < 10 ? '0' : '') +
                       item
                   ),
                   'rounded-l-xl': isLastRangeDay(
-                    _fromCalendar.year +
+                    calendarConfig.fromCalendar.year +
                       '-' +
-                      (_fromCalendar.month + 1 < 10 ? '0' : '') +
-                      (_fromCalendar.month + 1) +
-                      '-' +
-                      (item < 10 ? '0' : '') +
-                      item
-                  ),
-                  'text-gray-2 bg-gray-100 cursor-not-allowed': isDisabled(
-                    _fromCalendar.year +
-                      '-' +
-                      (_fromCalendar.month + 1 < 10 ? '0' : '') +
-                      (_fromCalendar.month + 1) +
+                      (calendarConfig.fromCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.fromCalendar.month + 1) +
                       '-' +
                       (item < 10 ? '0' : '') +
                       item
                   ),
+                  'text-gray-2 cursor-not-allowed': isDisabled(
+                    calendarConfig.fromCalendar.year +
+                      '-' +
+                      (calendarConfig.fromCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.fromCalendar.month + 1) +
+                      '-' +
+                      (item < 10 ? '0' : '') +
+                      item
+                  )
                 }"
               >
                 <p
-                  class="text-center"
+                  class="text-center mb-0"
                   (click)="
                     handleClickDay(
-                      _fromCalendar.year +
+                      calendarConfig.fromCalendar.year +
                         '-' +
-                        (_fromCalendar.month + 1 < 10 ? '0' : '') +
-                        (_fromCalendar.month + 1) +
+                        (calendarConfig.fromCalendar.month + 1 < 10
+                          ? '0'
+                          : '') +
+                        (calendarConfig.fromCalendar.month + 1) +
                         '-' +
                         (item < 10 ? '0' : '') +
                         item
@@ -249,30 +301,28 @@
                 </p>
               </div>
             </div>
-            <!-- ------------------ DAYS OF MONTH ------------------ -->
           </div>
-          <!-- ------------------ FROM CALENDAR ------------------ -->
 
-          <!-- ------------------ TO CALENDAR ------------------ -->
-          <div class="w-full relative flex-1">
+          <div class="relative flex-1">
             <div class="bg-gray-200 p-2">
               <div
                 class="flex-1 flex items-center justify-center bg-white rounded py-1"
               >
-                <p>{{ getPersianTextDate("to") }}</p>
+                <p class="mb-0">{{ getPersianTextDate("to") }}</p>
               </div>
             </div>
 
-            <div class="flex justify-between mt-5 ml-2">
+            <!--            TO Header-->
+            <div class="flex justify-between mt-4 ml-2">
               <div class="w-4"></div>
               <div
                 class="flex justify-center items-center flex-1 text-center cursor-pointer gap-1"
               >
-                <p (click)="toggleToMonthPicker()">
-                  {{ monthsOfYear[_toCalendar.month] }}
+                <p (click)="toggleToMonthPicker()" class="mb-0">
+                  {{ monthsOfYear[calendarConfig.toCalendar.month] }}
                 </p>
-                <p (click)="toggleToYearPicker()">
-                  {{ _toCalendar.year }}
+                <p (click)="toggleToYearPicker()" class="mb-0">
+                  {{ calendarConfig.toCalendar.year }}
                 </p>
               </div>
 
@@ -295,19 +345,20 @@
                 </svg>
               </div>
             </div>
+            <!--            TO Header-->
 
             <div class="flex flex-1 mt-4 ml-2 mr-1">
               <div
                 *ngFor="let item of daysOfWeek; let i = index"
                 class="flex-1 text-center"
               >
-                <p>
+                <p class="mb-0">
                   {{ item }}
                 </p>
               </div>
             </div>
 
-            <!-- ---------------- TO MONTH PICKER ---------------- -->
+            <!--            TO MONTH PICKER-->
             <div
               *ngIf="showToMonthPicker"
               class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
@@ -315,20 +366,26 @@
               <div
                 *ngFor="let month of monthsOfYear; let i = index"
                 class="border rounded flex justify-center items-center cursor-pointer"
+                [style]="{
+                  'background-color':
+                    i === calendarConfig.toCalendar.month
+                      ? primaryColor
+                      : 'white'
+                }"
                 [ngClass]="{
-                  'bg-primary-1 text-white !border-none':
-                    i === _toCalendar.month
+                  'text-white !border-none':
+                    i === calendarConfig.toCalendar.month
                 }"
                 (click)="handleToMonthClick(i)"
               >
-                <p>
+                <p class="mb-0">
                   {{ month }}
                 </p>
               </div>
             </div>
-            <!-- ---------------- TO MONTH PICKER ---------------- -->
+            <!--            TO MONTH PICKER-->
 
-            <!-- ---------------- To YEAR PICKER ---------------- -->
+            <!--            TO YEAR PICKER-->
             <div
               *ngIf="showToYearPicker"
               class="absolute w-full p-2 grid grid-cols-3 gap-1 bottom-0 top-11 left-0 bg-white border-1 border"
@@ -336,78 +393,113 @@
               <div
                 class="flex justify-center items-center"
                 *ngFor="let year of years"
+                [style]="{
+                  'background-color':
+                    calendarConfig.toCalendar.year === year
+                      ? primaryColor
+                      : 'white'
+                }"
                 [ngClass]="{
-                  'bg-primary-1 text-white rounded': _toCalendar.year === year
+                  'text-white rounded': calendarConfig.toCalendar.year === year
                 }"
               >
-                <p class="cursor-pointer" (click)="handleToYearClick(year)">
+                <p class="cursor-pointer mb-0" (click)="handleToYearClick(year)">
                   {{ year }}
                 </p>
               </div>
             </div>
+            <!--            TO YEAR PICKER-->
 
-            <!-- ---------------- TO YEAR PICKER ---------------- -->
-            <div class="grid grid-cols-7 mt-3 mb-4 cursor-pointer mr-1 ml-2">
+            <div
+              class="grid grid-cols-7 mb-4 cursor-pointer mr-1 ml-2"
+              style="margin-top: 10px"
+            >
               <div
                 *ngFor="
-                  let item of getRangeDays(_toCalendar.dayCount);
+                  let item of getRangeDays(calendarConfig.toCalendar.dayCount);
                   let i = index
                 "
                 [style.grid-column-start]="
                   i === 0
-                    ? _toCalendar.dayOfFirstDate === 0
+                    ? calendarConfig.toCalendar.dayOfFirstDate === 0
                       ? 1
-                      : _toCalendar.dayOfFirstDate + 1
+                      : calendarConfig.toCalendar.dayOfFirstDate + 1
                     : undefined
                 "
                 class="py-1"
                 style="margin-top: 2px; margin-bottom: 2px"
+                [style]="{
+                  'background-color': isInRange(
+                    calendarConfig.toCalendar.year +
+                      '-' +
+                      (calendarConfig.toCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.toCalendar.month + 1) +
+                      '-' +
+                      (item < 10 ? '0' : '') +
+                      item
+                  )
+                    ? primaryColor
+                    : isDisabled(
+                          calendarConfig.toCalendar.year +
+                            '-' +
+                            (calendarConfig.toCalendar.month + 1 < 10
+                              ? '0'
+                              : '') +
+                            (calendarConfig.toCalendar.month + 1) +
+                            '-' +
+                            (item < 10 ? '0' : '') +
+                            item
+                        )
+                      ? '#f3f4f6'
+                      : ''
+                }"
                 [ngClass]="{
-            'bg-primary-1 text-white': isInRange(
-              _toCalendar.year +
-                '-' +
-                (_toCalendar.month + 1 < 10 ? '0' : '') +
-                (_toCalendar.month + 1) +
-                '-' +
-                (item < 10 ? '0' : '') +
-                item
-            ),
-            'rounded-r-xl': isFirstRangeDay(
-              _toCalendar.year +
-                '-' +
-                (_toCalendar.month + 1 < 10 ? '0' : '') +
-                (_toCalendar.month + 1) +
-                '-' +
-                (item < 10 ? '0' : '') +
-                item
-            ),
-            'rounded-l-xl': isLastRangeDay(
-              _toCalendar.year +
-                '-' +
-                (_toCalendar.month + 1 < 10 ? '0' : '') +
-                (_toCalendar.month + 1) +
-                '-' +
-                (item < 10 ? '0' : '') +
-                item
-            ), 'text-gray-2 bg-gray-100 cursor-not-allowed': isDisabled(
-              _toCalendar.year +
-                '-' +
-                (_toCalendar.month + 1 < 10 ? '0' : '') +
-                (_toCalendar.month + 1) +
-                '-' +
-                (item < 10 ? '0' : '') +
-                item
-            ),
-          }"
+                  'text-white': isInRange(
+                    calendarConfig.toCalendar.year +
+                      '-' +
+                      (calendarConfig.toCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.toCalendar.month + 1) +
+                      '-' +
+                      (item < 10 ? '0' : '') +
+                      item
+                  ),
+                  'rounded-r-xl': isFirstRangeDay(
+                    calendarConfig.toCalendar.year +
+                      '-' +
+                      (calendarConfig.toCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.toCalendar.month + 1) +
+                      '-' +
+                      (item < 10 ? '0' : '') +
+                      item
+                  ),
+                  'rounded-l-xl': isLastRangeDay(
+                    calendarConfig.toCalendar.year +
+                      '-' +
+                      (calendarConfig.toCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.toCalendar.month + 1) +
+                      '-' +
+                      (item < 10 ? '0' : '') +
+                      item
+                  ),
+                  'text-gray-2 cursor-not-allowed': isDisabled(
+                    calendarConfig.toCalendar.year +
+                      '-' +
+                      (calendarConfig.toCalendar.month + 1 < 10 ? '0' : '') +
+                      (calendarConfig.toCalendar.month + 1) +
+                      '-' +
+                      (item < 10 ? '0' : '') +
+                      item
+                  )
+                }"
               >
                 <p
-                  class="text-center"
+                  class="text-center mb-0"
                   (click)="
                     handleClickDay(
-                      _toCalendar.year +
+                      calendarConfig.toCalendar.year +
                         '-' +
-                        (_toCalendar.month + 1 < 10 ? '0' : '') +
-                        (_toCalendar.month + 1) +
+                        (calendarConfig.toCalendar.month + 1 < 10 ? '0' : '') +
+                        (calendarConfig.toCalendar.month + 1) +
                         '-' +
                         (item < 10 ? '0' : '') +
                         item
@@ -419,29 +511,7 @@
               </div>
             </div>
           </div>
-
-          <!-- ------------------ TO CALENDAR ------------------ -->
         </div>
-        <!-- <div class="flex justify-center gap-2 mt-4">
-          <div class="flex gap-1 items-center">
-            <div
-              class="w-3 h-3 rounded-full border border-primary-1 bg-primary-1"
-            ></div>
-            <p class="text-xs">روزهای انتخاب شده</p>
-          </div>
-          <div class="flex gap-1 items-center">
-            <div
-              class="w-3 h-3 rounded-full border border-primary-1 bg-white"
-            ></div>
-            <p class="text-xs">روزهای قابل انتخاب</p>
-          </div>
-          <div class="flex gap-1 items-center">
-            <div
-              class="w-3 h-3 rounded-full border border-gray-200 bg-gray-100"
-            ></div>
-            <p class="text-xs">روزهای غیر فعال</p>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>

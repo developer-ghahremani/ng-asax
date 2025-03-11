@@ -1,24 +1,25 @@
 <div
-  class="app-container h-[calc(100vh-80px)] w-full container py-12 mx-auto flex flex-col border rounded border-dark-1 p-8 m-8"
+  class="app-container min-h-[calc(100vh-80px)] w-full container py-12 mx-auto flex flex-col border rounded border-dark-1 p-8 m-8"
 >
   <h1 class="text-2xl text-dark-1 font-bold w-1/2">
     به سایت راهنمای استفاده از کتابخانه<br />
     ng-asax-jalali-date-range-picker خوش آمدید.
   </h1>
   <div
-    class="flex justify-between gap-4 mt-16"
+    class="flex flex-col md:flex-row justify-between gap-4 mt-16"
     [ngClass]="{ 'flex-row-reverse': !isRightAlign }"
   >
-    <ng-asax-jalali-date-range-picker></ng-asax-jalali-date-range-picker>
-    <p>sadasd</p>
-    <!-- [toDate]="toDate"
-    [minDate]="minDate"
-    [maxDate]="maxDate"
-    [fromDate]="fromDate"
-    [isRightAlign]="isRightAlign"
-    (onChange)="handleChange($event)" -->
+    <ng-asax-jalali-date-range-picker
+      [toDate]="toDate"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      [inputStyle]="selected"
+      [fromDate]="fromDate"
+      [isRightAlign]="isRightAlign"
+      (onChange)="handleChange($event)"
+    ></ng-asax-jalali-date-range-picker>
 
-    <div class="flex flex-col w-1/3">
+    <div class="flex flex-col md:w-1/3">
       <p class="text-xl font-bold">راهنمای ورودی های قابل قبول</p>
       <div class="flex items-center gap-4">
         <mat-slide-toggle
@@ -29,7 +30,16 @@
         <p class="!mt-2">نحوه باز شدن picker</p>
       </div>
 
-      <div class="flex"></div>
+      <mat-form-field>
+        <mat-label>نحوه نمایش سلکتور</mat-label>
+        <mat-select [(value)]="selected" dir="rtl">
+          <mat-option value="inlineStyle">یکپارچه</mat-option>
+          <mat-option value="separateStyle">مجزا</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <p>
+        {{ selected }}
+      </p>
     </div>
   </div>
 

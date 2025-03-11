@@ -1,4 +1,4 @@
-<!-- <ng-container
+<ng-container
   *ngIf="inputStyle === 'inlineStyle'; then inlineStyle; else separateStyle"
 ></ng-container>
 <ng-template #inlineStyle>
@@ -12,13 +12,14 @@
       ></app-svg-icon>
     </span>
     <div
-      class="flex items-center pr-[8px] pl-[12px] gap-1 [&>p]:text-[14px] [&>p]:mb-0"
+      class="flex items-center"
+      style="padding-right: 12px; padding-left: 12px; gap: 4px"
     >
-      <p>
+      <p class="mb-0">
         {{ fromDate }}
       </p>
-      <p>-</p>
-      <p>
+      <p class="mb-0">-</p>
+      <p class="mb-0">
         {{ toDate }}
       </p>
     </div>
@@ -32,15 +33,13 @@
   </div>
 </ng-template>
 <ng-template #separateStyle>
-  <div class="flex gap-2">
-    <div class="ng-date-range-picker_input-container">
-      <p
-        (click)="handleTogglePicker()"
-        class="ng-date-range-picker_input-label"
-      >
-        از تاریخ
-      </p>
-      <p>{{ fromDate }}</p>
+  <div class="flex" style="gap: 8px">
+    <div
+      (click)="handleTogglePicker()"
+      class="ng-date-range-picker_input-container"
+    >
+      <p class="ng-date-range-picker_input-label">از تاریخ</p>
+      <p class="mb-0">{{ fromDate }}</p>
     </div>
 
     <div
@@ -48,7 +47,7 @@
       class="ng-date-range-picker_input-container"
     >
       <p class="ng-date-range-picker_input-label">تا تاریخ</p>
-      <p>{{ toDate }}</p>
+      <p class="mb-0">{{ toDate }}</p>
     </div>
   </div>
-</ng-template> -->
+</ng-template>

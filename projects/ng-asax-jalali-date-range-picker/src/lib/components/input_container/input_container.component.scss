@@ -1,14 +1,44 @@
+@import url("./../../ng-asax-jalali-date-range-picker.component.scss");
+
 .ng-asax-jalali-date-picker {
   &__input_container {
-    border: 1px solid red;
-    padding-left: 14px;
-    padding-right: 14px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    border: 1px solid gray;
+    padding: 14px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 0.25rem;
     width: 100%;
   }
+}
+
+.ng-date-range-picker_input-label {
+  position: absolute;
+  margin-bottom: 0;
+  top: -11px;
+  right: 1px;
+  font-size: 11px;
+  padding-right: 8px;
+  padding-left: 8px;
+  background-color: white;
+}
+
+.ng-date-range-picker_input-container {
+  min-width: 150px;
+
+  border-radius: 4px;
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-bottom: 2px;
+  padding-top: 3px;
+  cursor: pointer;
+  position: relative;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }

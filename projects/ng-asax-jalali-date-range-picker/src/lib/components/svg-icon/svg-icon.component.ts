@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import icons from './icons.json'; // Make sure the path to your JSON file is correct
+import { icons } from './icons'; // Make sure the path to your JSON file is correct
 
 @Component({
   selector: 'app-svg-icon',
