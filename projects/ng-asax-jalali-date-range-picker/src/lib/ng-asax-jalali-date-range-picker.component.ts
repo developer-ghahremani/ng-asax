@@ -16,9 +16,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import moment, {Moment} from 'jalali-moment';
+import moment, { Moment } from 'jalali-moment';
 
-import {range} from 'lodash';
+import { range } from 'lodash';
 
 @Component({
   selector: 'ng-asax-jalali-date-range-picker',
@@ -70,7 +70,7 @@ export class NgAsaxJalaliDatepickerComponent {
   @Output() onChange = new EventEmitter<{ fromDate: Moment; toDate: Moment }>();
 
   constructor() {
-    moment.updateLocale('en', {week: {dow: 6, doy: 0}});
+    moment.updateLocale('en', { week: { dow: 6, doy: 0 } });
   }
 
   getWeekDayOfAYear(year: number, month: number): number {
@@ -81,9 +81,22 @@ export class NgAsaxJalaliDatepickerComponent {
     this.calendarConfig = {
       fromCalendar: {
         month: this.toDate.jMonth() === 0 ? 11 : this.toDate.jMonth() - 1,
-        year: this.toDate.jMonth() === 0 ? this.toDate.jYear() - 1 : this.toDate.jYear(),
-        dayCount: this.getDayCount(this.toDate.jMonth() === 11 ? this.toDate.jYear() - 1 : this.toDate.jYear(), this.toDate.jMonth() === 11 ? 0 : this.toDate.jMonth()),
-        dayOfFirstDate: this.getWeekDayOfAYear(this.toDate.jMonth() === 11 ? this.toDate.jYear() - 1 : this.toDate.jYear(), this.toDate.jMonth() === 11 ? 0 : this.toDate.jMonth() - 1),
+        year:
+          this.toDate.jMonth() === 0
+            ? this.toDate.jYear() - 1
+            : this.toDate.jYear(),
+        dayCount: this.getDayCount(
+          this.toDate.jMonth() === 0
+            ? this.toDate.jYear() - 1
+            : this.toDate.jYear(),
+          this.toDate.jMonth() === 0 ? 11 : this.toDate.jMonth() - 1,
+        ),
+        dayOfFirstDate: this.getWeekDayOfAYear(
+          this.toDate.jMonth() === 0
+            ? this.toDate.jYear() - 1
+            : this.toDate.jYear(),
+          this.toDate.jMonth() === 0 ? 11 : this.toDate.jMonth() - 1,
+        ),
       },
       toCalendar: {
         month: this.toDate.jMonth(),
@@ -170,8 +183,14 @@ export class NgAsaxJalaliDatepickerComponent {
           this.calendarConfig.toCalendar.month === 11
             ? this.calendarConfig.toCalendar.year + 1
             : this.calendarConfig.toCalendar.year,
-        dayCount:
-          this.getDayCount(this.calendarConfig.toCalendar.month === 11 ? this.calendarConfig.fromCalendar.year + 1 : this.calendarConfig.fromCalendar.year, this.calendarConfig.toCalendar.month === 11 ? 0 : this.calendarConfig.toCalendar.month + 1),
+        dayCount: this.getDayCount(
+          this.calendarConfig.toCalendar.month === 11
+            ? this.calendarConfig.fromCalendar.year + 1
+            : this.calendarConfig.fromCalendar.year,
+          this.calendarConfig.toCalendar.month === 11
+            ? 0
+            : this.calendarConfig.toCalendar.month + 1,
+        ),
         dayOfFirstDate: this.getWeekDayOfAYear(
           this.calendarConfig.toCalendar.month === 11
             ? this.calendarConfig.toCalendar.year + 1
@@ -187,12 +206,29 @@ export class NgAsaxJalaliDatepickerComponent {
   handlePrevious = () => {
     this.calendarConfig = {
       fromCalendar: {
-        month: this.calendarConfig.fromCalendar.month === 0 ? 11 : this.calendarConfig.fromCalendar.month - 1,
-        year: this.calendarConfig.fromCalendar.month === 0 ? this.calendarConfig.fromCalendar.year - 1 : this.calendarConfig.fromCalendar.year,
-        dayCount: this.getDayCount(this.calendarConfig.fromCalendar.month === 0 ? this.calendarConfig.fromCalendar.year - 1 : this.calendarConfig.fromCalendar.year, this.calendarConfig.fromCalendar.month === 0 ? 11 : this.calendarConfig.fromCalendar.month - 1),
-        dayOfFirstDate: this.getWeekDayOfAYear(this.calendarConfig.fromCalendar.month === 0 ? this.calendarConfig.fromCalendar.year - 1 : this.calendarConfig.fromCalendar.year, this.calendarConfig.fromCalendar.month === 0
-          ? 11
-          : this.calendarConfig.fromCalendar.month - 1,
+        month:
+          this.calendarConfig.fromCalendar.month === 0
+            ? 11
+            : this.calendarConfig.fromCalendar.month - 1,
+        year:
+          this.calendarConfig.fromCalendar.month === 0
+            ? this.calendarConfig.fromCalendar.year - 1
+            : this.calendarConfig.fromCalendar.year,
+        dayCount: this.getDayCount(
+          this.calendarConfig.fromCalendar.month === 0
+            ? this.calendarConfig.fromCalendar.year - 1
+            : this.calendarConfig.fromCalendar.year,
+          this.calendarConfig.fromCalendar.month === 0
+            ? 11
+            : this.calendarConfig.fromCalendar.month - 1,
+        ),
+        dayOfFirstDate: this.getWeekDayOfAYear(
+          this.calendarConfig.fromCalendar.month === 0
+            ? this.calendarConfig.fromCalendar.year - 1
+            : this.calendarConfig.fromCalendar.year,
+          this.calendarConfig.fromCalendar.month === 0
+            ? 11
+            : this.calendarConfig.fromCalendar.month - 1,
         ),
       },
       toCalendar: {
@@ -204,8 +240,14 @@ export class NgAsaxJalaliDatepickerComponent {
           this.calendarConfig.toCalendar.month === 0
             ? this.calendarConfig.toCalendar.year - 1
             : this.calendarConfig.toCalendar.year,
-        dayCount:
-          this.getDayCount(this.calendarConfig.toCalendar.month === 0 ? this.calendarConfig.toCalendar.year - 1 : this.calendarConfig.toCalendar.year, this.calendarConfig.toCalendar.month === 0 ? 11 : this.calendarConfig.toCalendar.month - 1),
+        dayCount: this.getDayCount(
+          this.calendarConfig.toCalendar.month === 0
+            ? this.calendarConfig.toCalendar.year - 1
+            : this.calendarConfig.toCalendar.year,
+          this.calendarConfig.toCalendar.month === 0
+            ? 11
+            : this.calendarConfig.toCalendar.month - 1,
+        ),
         dayOfFirstDate: moment(
           `${
             this.calendarConfig.toCalendar.month === 0
